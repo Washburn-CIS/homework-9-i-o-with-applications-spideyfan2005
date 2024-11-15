@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.io.*;
 
 public class GradeBook {
     private static Student[] students;
@@ -7,6 +8,18 @@ public class GradeBook {
         Scanner input = new Scanner(System.in);
 
         // TODO: initialize students from contents of grades.txt file
+
+        try
+        {
+            File myFile = new File("grades.txt");
+            Scanner input = new Scanner(myFile);
+
+            while (myFile.hasNext())
+            {
+
+            }
+
+        }catch (FileNotFoundException e)
 
         System.out.println("Welcome to the CM111 Grade Book App!");
 
