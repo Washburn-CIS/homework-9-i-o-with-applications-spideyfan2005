@@ -12,14 +12,24 @@ public class GradeBook {
         try
         {
             File myFile = new File("grades.txt");
-            Scanner input = new Scanner(myFile);
+            Scanner fin = new Scanner(myFile);
 
-            while (myFile.hasNext())
+            while (fin.hasNext())
             {
-
+                students = new Student[] { new Student(), new Student() };
+                students[0].setFirstName(fin.nextLine());
+                students[0].setLastName(fin.nextLine());
+                //students[0].setGrade(Double.parseDouble(fin.nextLine()));
+                students[1].setFirstName(fin.nextLine());
+                students[1].setLastName(fin.nextLine());
+                //students[1].setGrade(Double.parseDouble(fin.nextLine()));
             }
 
         }catch (FileNotFoundException e)
+        {
+            System.out.println("ERROR: File not found");
+            System.exit(1);
+        }
 
         System.out.println("Welcome to the CM111 Grade Book App!");
 
