@@ -4,31 +4,32 @@ import java.io.*;
 public class GradeBook {
     private static Student[] students;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) 
+    throws FileNotFoundException
+    {
         Scanner input = new Scanner(System.in);
 
-        // TODO: initialize students from contents of grades.txt file
-
-        try
-        {
-            File myFile = new File("grades.txt");
-            Scanner fin = new Scanner(myFile);
-
-            while (fin.hasNext())
-            {
-                students = new Student[] { new Student(), new Student() };
-                students[0].setFirstName(fin.nextLine());
-                students[0].setLastName(fin.nextLine());
-                //students[0].setGrade(Double.parseDouble(fin.nextLine()));
-                students[1].setFirstName(fin.nextLine());
-                students[1].setLastName(fin.nextLine());
-                //students[1].setGrade(Double.parseDouble(fin.nextLine()));
-            }
-
-        }catch (FileNotFoundException e)
+        File myFile = new File("grades.txt");
+        Scanner fin = new Scanner(myFile);
+        
+       if (!myFile.exists())
         {
             System.out.println("ERROR: File not found");
             System.exit(1);
+        }
+
+        int numStudents = Integer.parseInt(fin.nextLine());
+        students = new Student[numStudents];
+
+        // TODO: initialize students from contents of grades.txt file
+
+        for (int i = 0; i < numStudents; i++)
+        {
+            String[] tokens = fin.nextLine().split(",");
+            students[i] = new Student();
+            students[i].setFirstName(tokens[0]);
+            students[i].setLastName(tokens[1]);
+            students[i].setGrade(Double.parseDouble(tokens[2]));
         }
 
         System.out.println("Welcome to the CM111 Grade Book App!");
@@ -73,5 +74,7 @@ public class GradeBook {
 
             }
         }
+
+        fin.close();
     }
 }
