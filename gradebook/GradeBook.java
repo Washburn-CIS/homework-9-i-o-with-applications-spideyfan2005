@@ -23,6 +23,7 @@ public class GradeBook {
                 students[i].setLastName(tokens[1]);
                 students[i].setGrade(Double.parseDouble(tokens[2]));
             }
+            fin.close();
         }
         catch (FileNotFoundException e)
         {
