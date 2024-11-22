@@ -61,15 +61,28 @@ public class GradeBook {
                         if(student.getFirstName().equals(fname) &&
                            student.getLastName().equals(lname)) {
                            System.out.println("Enter Grade: ");
+
                            student.setGrade(Double.parseDouble(input.nextLine()));
+
+                           //Save grades to grades.txt
+                           try 
+                           {
+                               FileWriter writer = new FileWriter("grades.txt", true);
+                               //I have no idea how to get rid of the previous number
+                               writer.write(String.valueOf(student.getGrade()));
+                               writer.close();
+                           }catch (IOException e)
+                               {
+                                    System.out.println("ERROR"); 
+                                    System.exit(1);
+                               }
                            System.out.println("Grade updated");
-                           continue;
+                        }else{
+                            System.out.println("Student not found");
                         }
                     }
-                    System.out.println("Student not found");
                     break;
                 case "3":
-                    // Challenge: write code to save the grades to grades.txt
                     System.out.println("Goodbye!");
                     return;
 
