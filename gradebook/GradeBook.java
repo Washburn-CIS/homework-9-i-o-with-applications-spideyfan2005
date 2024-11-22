@@ -5,32 +5,32 @@ public class GradeBook {
     private static Student[] students;
 
     public static void main(String[] args) 
-    throws FileNotFoundException
     {
-        Scanner input = new Scanner(System.in);
+        // TODO: initialize students from contents of grades.txt file
+        try
+        {
+            File myFile = new File("grades.txt");
+            Scanner fin = new Scanner(myFile);
 
-        File myFile = new File("grades.txt");
-        Scanner fin = new Scanner(myFile);
-        
-       if (!myFile.exists())
+            int numStudents = Integer.parseInt(fin.nextLine());
+            students = new Student[numStudents];
+
+            for (int i = 0; i < numStudents; i++)
+            {
+                String[] tokens = fin.nextLine().split(",");
+                students[i] = new Student();
+                students[i].setFirstName(tokens[0]);
+                students[i].setLastName(tokens[1]);
+                students[i].setGrade(Double.parseDouble(tokens[2]));
+            }
+        }
+        catch (FileNotFoundException e)
         {
             System.out.println("ERROR: File not found");
             System.exit(1);
         }
 
-        int numStudents = Integer.parseInt(fin.nextLine());
-        students = new Student[numStudents];
-
-        // TODO: initialize students from contents of grades.txt file
-
-        for (int i = 0; i < numStudents; i++)
-        {
-            String[] tokens = fin.nextLine().split(",");
-            students[i] = new Student();
-            students[i].setFirstName(tokens[0]);
-            students[i].setLastName(tokens[1]);
-            students[i].setGrade(Double.parseDouble(tokens[2]));
-        }
+        Scanner input = new Scanner(System.in);
 
         System.out.println("Welcome to the CM111 Grade Book App!");
 
@@ -45,7 +45,7 @@ public class GradeBook {
             switch(choice) {
                 case "1": 
                     for(Student student: students) {
-                        System.out.printf("%s, %s: %f%n", student.getLastName(), 
+                        System.out.printf("%s, %s: %.2f%n", student.getLastName(), 
                                                         student.getFirstName(), 
                                                         student.getGrade());
                     }
@@ -74,7 +74,5 @@ public class GradeBook {
 
             }
         }
-
-        fin.close();
     }
 }
