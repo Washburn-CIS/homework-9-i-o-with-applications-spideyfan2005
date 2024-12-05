@@ -62,28 +62,29 @@ public class GradeBook {
                            student.getLastName().equals(lname)) {
                            System.out.println("Enter Grade: ");
 
-                           student.setGrade(Double.parseDouble(input.nextLine()));
-
-                           //Save grades to grades.txt
-                           try 
-                           {
-                               FileWriter writer = new FileWriter("grades.txt", true);
-                               //I have no idea how to get rid of the previous number
-                               writer.write(String.valueOf(student.getGrade()));
-                               writer.close();
-                           }catch (IOException e)
-                               {
-                                    System.out.println("ERROR"); 
-                                    System.exit(1);
-                               }
-                           System.out.println("Grade updated");
-                        }else{
-                            System.out.println("Student not found");
+                           student.setGrade(Double.parseDouble(input.nextLine()));    
                         }
                     }
                     break;
                 case "3":
                     System.out.println("Goodbye!");
+                    //Save grades to grades.txt
+                           try 
+                           {
+                               PrintWriter fout = new PrintWriter(new File("grades.txt"));
+                                fout.println(students.length);
+                                for(Student s : students) {
+                                    fout.printf("%s,%s,%f%n",
+                                        s.getFirstName(),
+                                        s.getLastName(),
+                                        s.getGrade());
+                                }
+                                fout.close();
+                           }catch (IOException e)
+                               {
+                                    System.out.println("ERROR: Could not save grades"); 
+                                    System.exit(1);
+                               }
                     return;
 
             }
